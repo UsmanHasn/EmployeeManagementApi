@@ -142,3 +142,4 @@ E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\Api.ge
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\ref\Api.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\SixLabors.ImageSharp.dll
+E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\Api.sourcelink.json
