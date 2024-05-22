@@ -43,6 +43,14 @@ namespace DataAccessLayer
             return await _dbcontext.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Attendence>> GetAttendanceByUserId(int userId)
+        {
+            return await _dbcontext.Attendences
+                .Where(x => x.EmployeeId == userId)
+                .ToListAsync();
+        }
+
+
 
 
     }

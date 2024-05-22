@@ -1,4 +1,5 @@
 ﻿using BusinesObjectLayer.Dtos;
+using BusinessObjectLayer.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,10 @@ namespace DataAccessLayer.Interfaces
         Task<User> VerifyUser(BOL_LoginRequest model);
 
         Task<Attendence> GetAttendenceByUserId(int Id, DateTime dateTime);
+
+        Task<User> UpdateProfile(BOL_UpdateUser model);
+
+        Task<int> ResetUserPassword(BOL_ResetUserPassword model);
+
     }
 }

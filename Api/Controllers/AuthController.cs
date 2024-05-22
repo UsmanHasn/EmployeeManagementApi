@@ -1,6 +1,8 @@
 ﻿using BusinesObjectLayer.Dtos;
 using BusinessLogicLayer;
 using BusinessLogicLayer.Interfaces;
+using BusinessObjectLayer.Dtos;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +31,25 @@ namespace Api.Controllers
             return await _IBLL_Auth.LoginUser(model);
         }
 
+        [HttpPost, Route("UploadProfilePicture")]
+        public async Task<BOL_ApiResponse<string>> UploadProfilePicture(IFormFile file)
+        {
+            return await _IBLL_Auth.UploadProfilePicture(HttpContext.Request);
+        }
 
 
+        [HttpPost, Route("UpdateProfile")]
+        public async Task<BOL_ApiResponse<User>> Updateprofile(BOL_UpdateUser model)
+        {
+            return await _IBLL_Auth.Updateprofile(model);
+        }
+
+
+
+        [HttpPost, Route("ResetUserPassword")]
+         public async Task<BOL_ApiResponse<int>> ResetUserPassword(BOL_ResetUserPassword model)
+        {
+            return await _IBLL_Auth.ResetUserPassword(model);
+        }
     }
 }

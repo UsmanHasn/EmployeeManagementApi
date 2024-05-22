@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,8 @@ builder.Services.AddScoped<IBLL_LoggedInUser, BLL_LoggedInUser>();
 builder.Services.AddScoped<IEmailHelper, EmailHelper>();
 builder.Services.AddScoped<IDAL_Attendence, DAL_Attendence>();
 builder.Services.AddScoped<IBLL_Attendence, BLL_Attendence>();
+builder.Services.AddScoped<IDAL_Leave, DAL_Leave>();
+builder.Services.AddScoped<IBLL_Leave, BLL_Leave>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddCors(p => p.AddPolicy("CorsPolicy", build =>
 {
@@ -84,6 +87,13 @@ if (app.Environment.IsDevelopment())
 app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+            Path.Combine(builder.Environment.ContentRootPath,"Uploads")),
+    RequestPath = "/Uploads" // This is optional; it sets the URL path for accessing the files
+}); 
 
 app.UseSwagger();
 //Add  swagger code usman

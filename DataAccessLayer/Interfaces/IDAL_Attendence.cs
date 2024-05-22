@@ -11,5 +11,7 @@ namespace DataAccessLayer.Interfaces
         Task<int> TimeIn(int Id);
 
         Task<int> TimeOut(int Id);
+
+        Task<IEnumerable<Attendence>> GetAttendanceByUserId(int userId);
     }
 }

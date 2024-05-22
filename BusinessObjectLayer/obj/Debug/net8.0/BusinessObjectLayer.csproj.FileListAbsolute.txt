@@ -10,3 +10,4 @@ E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Deb
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\refint\BusinessObjectLayer.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\BusinessObjectLayer.pdb
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\ref\BusinessObjectLayer.dll
+E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\BusinessObjectLayer.sourcelink.json

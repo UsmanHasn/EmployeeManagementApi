@@ -20,6 +20,8 @@ namespace BusinesObjectLayer.Dtos
 
         public string Email { get; set; } = null!;
 
+        public string PhoneNo { get; set; }
+
 
         public string Adress { get; set; } = null!;
 
@@ -32,6 +34,10 @@ namespace BusinesObjectLayer.Dtos
 
         public DateTime? TimedIn { get; set; }
         public DateTime? TimedOut { get; set; }
+
+        public string ProfilePic {  get; set; }
+
+        public DateTime CreatedOn { get; set;}
     }
 }
 

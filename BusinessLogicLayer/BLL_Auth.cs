@@ -2,7 +2,10 @@
 using BusinesObjectLayer.Enums;
 using BusinessLogicLayer.Helper;
 using BusinessLogicLayer.Interfaces;
+using BusinessObjectLayer.Dtos;
+using DataAccessLayer;
 using DataAccessLayer.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -88,6 +91,10 @@ namespace BusinessLogicLayer
                     userdto.Adress = user.Address;
                     userdto.UserTypeId = user.UsertypeId;
                     userdto.Identifier = user.Identifier;
+                    userdto.PhoneNo = user.PhoneNo;
+                    userdto.ProfilePic = user.ProfilePictureUrl;
+                    userdto.CreatedOn = user.CreatedOn;
+
                     if (attendence != null)
                     {
                         userdto.TimedIn = attendence.TimedIn;
@@ -129,6 +136,90 @@ namespace BusinessLogicLayer
 
             user.AuthToken = new JwtSecurityTokenHandler().WriteToken(token);
             return user;
+        }
+
+        public async Task<BOL_ApiResponse<string>> UploadProfilePicture(HttpRequest request)
+        {
+            var response = new BOL_ApiResponse<string>();
+            try
+            {
+                response.Data = await _IGeneralFunctions.UploadMediaFile(request, _IGeneralFunctions.GetProfileImageDirectory());
+                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "Image uploaded Successfully";
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<BOL_ApiResponse<User>> Updateprofile(BOL_UpdateUser model)
+        {
+            var response = new BOL_ApiResponse<User>();
+            try
+            {
+                model.Id = _IGeneralFunctions.GetLoggedInUserId();
+                model.UpdatedBy = model.Id;
+                var user = await _IDAL_Auth.UpdateProfile(model);
+                if (user == null)
+                {
+                    response.StatusCode = HttpStatusCode.BadRequest;
+                    response.Message = "User Not Found";
+
+                }
+                else
+                {
+                    response.Data = user;
+                    response.StatusCode = HttpStatusCode.OK;
+                    response.Message = "Profile Updated Successfully";
+
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<BOL_ApiResponse<int>> ResetUserPassword(BOL_ResetUserPassword model)
+        {
+            var response = new BOL_ApiResponse<int>();
+
+            try
+            {
+                if (model.NewPassword == model.ConfirmPassword)
+                {
+                    model.Id = _IGeneralFunctions.GetLoggedInUserId();
+
+                    var user = await _IDAL_Auth.ResetUserPassword(model);
+                    if (user > 0)
+                    {
+                        response.Data = user;
+                        response.StatusCode = HttpStatusCode.OK;
+                        response.Message = "Password Updated Successfully";
+                    }
+                    else
+                    {
+                        response.StatusCode = HttpStatusCode.BadRequest;
+                        response.Message = "Current Password does not matched";
+                    }
+                }
+                else
+                {
+                    response.StatusCode = HttpStatusCode.BadRequest;
+                    response.Message = "New Password and Current Password Does Not matched";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message = ex.Message;
+            }
+            return response;    
         }
 
         //public async Task<BOL_ApiResponse<bool>> ForgotPasswordSendEmail(string Email)

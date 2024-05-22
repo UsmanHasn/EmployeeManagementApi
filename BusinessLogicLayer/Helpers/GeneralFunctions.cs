@@ -62,7 +62,7 @@ namespace BusinessLogicLayer.Helper
             {
                 throw new ArgumentException("File is empty or null");
             }
-            string folderpath = _webHostEnvironment.WebRootPath + uploadPath;
+            string folderpath = Directory.GetCurrentDirectory() + uploadPath;
         //E:\Classes\Update Project 2022\SchoolManagementApi\PresentationLayer\wwwroot\
         //Upload\ProfilePictures\
             if (!Directory.Exists(folderpath))
@@ -92,10 +92,13 @@ namespace BusinessLogicLayer.Helper
                 }
                 // Delete the original file
                 File.Delete(filePath);
+                resizedFilePath = resizedFilePath.Replace(Directory.GetCurrentDirectory(), "");
                 return resizedFilePath;
             }
             else
             {
+                filePath = filePath.Replace(Directory.GetCurrentDirectory(), "");
+
                 // Return the original file path if it's not an image
                 return filePath;
             }
@@ -107,7 +110,7 @@ namespace BusinessLogicLayer.Helper
 
         public string GetProfileImageDirectory()
         {
-            return "\\Upload\\ProfilePictures";
+            return "\\Uploads\\ProfilePictures";
         }
         private bool IsImage(IFormFile file)
         {

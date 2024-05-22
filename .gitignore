@@ -3,3 +3,11 @@
 ################################################################################
 
 /Api/Uploads/ProfilePictures
+
+.vs/
+/Api/bin
+/Api/obj
+/BusinessLogicLayer/obj
+/BusinessLogicLayer/bin
+/BusinessObjectLayer/obj
+/BusinessObjectLayer/bin

@@ -1,4 +1,5 @@
 ﻿using BusinesObjectLayer.Dtos;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,9 @@ namespace BusinessLogicLayer.Interfaces
 {
     public interface IBLL_Attendence
     {
-        Task<BOL_ApiResponse<int>> TimeIn(int Id);
-        Task<BOL_ApiResponse<int>> TimeOut(int Id);
+        Task<BOL_ApiResponse<int>> TimeIn();
+        Task<BOL_ApiResponse<int>> TimeOut();
+
+        Task<BOL_ApiResponse<IEnumerable<Attendence>>> GetAttendencebyUserId();
     }
 }

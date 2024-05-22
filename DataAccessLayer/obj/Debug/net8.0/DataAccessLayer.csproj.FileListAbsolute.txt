@@ -15,3 +15,4 @@ E:\Classes\Update Project 2022\EmployeeManagementApi\DataAccessLayer\obj\Debug\n
 E:\Classes\Update Project 2022\EmployeeManagementApi\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.pdb
 E:\Classes\Update Project 2022\EmployeeManagementApi\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.genruntimeconfig.cache
 E:\Classes\Update Project 2022\EmployeeManagementApi\DataAccessLayer\obj\Debug\net8.0\ref\DataAccessLayer.dll
+E:\Classes\Update Project 2022\EmployeeManagementApi\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.sourcelink.json
