@@ -6,16 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer;
 
-[Table("LeaveType", Schema = "Leave")]
-public partial class LeaveType
+[Table("LeaveStatus", Schema = "Leave")]
+public partial class LeaveStatus
 {
     [Key]
     public int Id { get; set; }
 
-    [StringLength(100)]
+    [StringLength(10)]
     [Unicode(false)]
-    public string Title { get; set; } = null!;
+    public string? Title { get; set; }
 
-    [InverseProperty("LeaveType")]
+    [InverseProperty("LeaveStatus")]
     public virtual ICollection<Leave> Leaves { get; set; } = new List<Leave>();
 }

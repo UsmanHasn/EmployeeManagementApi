@@ -26,4 +26,12 @@ public partial class Leave
     public int LeaveTypeId { get; set; }
 
     public int LeaveStatusId { get; set; }
+
+    [ForeignKey("LeaveStatusId")]
+    [InverseProperty("Leaves")]
+    public virtual LeaveStatus LeaveStatus { get; set; } = null!;
+
+    [ForeignKey("LeaveTypeId")]
+    [InverseProperty("Leaves")]
+    public virtual LeaveType LeaveType { get; set; } = null!;
 }

@@ -15,6 +15,8 @@ namespace BusinessObjectLayer.Dtos
 
         public int LeaveTypeId { get; set; }
         public int LeaveStatusId { get; set; }
+        public string LeaveType { get; set; }
+        public string LeaveStatus { get; set; }
         
 
 

@@ -22,14 +22,17 @@ public partial class Dbcontext : DbContext
 
     public virtual DbSet<Leave> Leaves { get; set; }
 
+    public virtual DbSet<LeaveStatus> LeaveStatuses { get; set; }
+
     public virtual DbSet<LeaveType> LeaveTypes { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserType> UserTypes { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
-
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-O6HU8I0;Initial Catalog=EmployeeManagementDb;Integrated Security=True;TrustServerCertificate=true ");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -50,6 +53,21 @@ public partial class Dbcontext : DbContext
             entity.Property(e => e.CreatedOn).HasDefaultValueSql("(getutcdate())");
             entity.Property(e => e.Identifier).HasDefaultValueSql("(newid())");
             entity.Property(e => e.LeaveStatusId).HasDefaultValue(1);
+
+            entity.HasOne(d => d.LeaveStatus).WithMany(p => p.Leaves)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Leave__LeaveStat__4AB81AF0");
+
+            entity.HasOne(d => d.LeaveType).WithMany(p => p.Leaves)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Leave__LeaveType__49C3F6B7");
+        });
+
+        modelBuilder.Entity<LeaveStatus>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__LeaveSta__3214EC07341058D8");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<User>(entity =>

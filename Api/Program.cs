@@ -89,13 +89,12 @@ if (app.Environment.IsDevelopment())
 app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
-            Path.Combine(builder.Environment.ContentRootPath,"Uploads")),
+            Path.Combine(builder.Environment.ContentRootPath, "Uploads")),
     RequestPath = "/Uploads" // This is optional; it sets the URL path for accessing the files
-}); 
+});
 
 app.UseSwagger();
 //Add  swagger code usman

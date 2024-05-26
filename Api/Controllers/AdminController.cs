@@ -1,4 +1,6 @@
-﻿using BusinessLogicLayer.Interfaces;
+﻿using BusinesObjectLayer.Dtos;
+using BusinessLogicLayer.Interfaces;
+using BusinessObjectLayer.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,5 +16,13 @@ namespace Api.Controllers
         {
             _IBLL_Admin = iBLL_Admin;
         }
+
+        [HttpGet, Route("GetAllLeaveRequests")]
+        public async Task<BOL_ApiResponse<IEnumerable<BOL_LeaveRequestViewModel>>> GetAllLeaveRequests()
+        {
+            return await _IBLL_Admin.GetAllLeaveRequests();
+
+        }
+
     }
 }

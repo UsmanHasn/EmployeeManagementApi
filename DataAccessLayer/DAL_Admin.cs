@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class DAL_Admin:IDAL_Admin
+    public class DAL_Admin : IDAL_Admin
     {
         private readonly Dbcontext _Dbcontext;
 
@@ -19,8 +19,25 @@ namespace DataAccessLayer
             _Dbcontext = dbcontext;
         }
 
-        //public async Task<BOL_LeaveRequestViewModel> GetAllRequest()
-        //{
-        //}
+        public async Task<IEnumerable<BOL_LeaveRequestViewModel>> GetAllLeaveRequests()
+        {
+            return _Dbcontext.Leaves.Include(l => l.LeaveType)
+                .Include(l => l.LeaveStatus)
+                .Select(l => new BOL_LeaveRequestViewModel()
+                {
+                    Identifier = l.Identifier,
+                    RequestedBy = l.RequestedBy,
+                    ApprovedBy = l.ApprovedBy ?? 0,
+                    CreatedOn = l.CreatedOn,
+                    LeaveTypeId = l.LeaveTypeId,
+                    LeaveStatusId = l.LeaveStatusId,
+                    LeaveType = l.LeaveType.Title,
+                    LeaveStatus = l.LeaveStatus.Title!,
+                    
+
+                }
+                ).ToList();
+
+        }
     }
 }
