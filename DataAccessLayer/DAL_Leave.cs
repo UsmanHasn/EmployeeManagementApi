@@ -33,8 +33,6 @@ namespace DataAccessLayer
 
         }
 
-
-
         public async Task<IEnumerable<BOL_DropdownModel>> GetLeaveRequestTypes()
         {
             var leaveTypes = await _dbcontext.LeaveTypes.ToListAsync();
@@ -45,7 +43,32 @@ namespace DataAccessLayer
             });
         }
 
-        
+        public async Task<IEnumerable<BOL_LeaveRequestViewModel>> GetAllMyLeaveRequests(int userId)
+        {
+            return _dbcontext.Leaves.Include(l => l.LeaveType)
+                .Include(l => l.LeaveStatus)
+                .Include(l => l.ApprovedByNavigation)
+                .Include(l => l.RequestedByNavigation)
+                .Where(l => l.RequestedBy == userId)
+                .Select(l => new BOL_LeaveRequestViewModel()
+                {
+                    Identifier = l.Identifier,
+                    RequestedBy = l.RequestedBy,
+                    ApprovedBy = l.ApprovedBy ?? 0,
+                    CreatedOn = l.CreatedOn,
+                    LeaveTypeId = l.LeaveTypeId,
+                    LeaveStatusId = l.LeaveStatusId,
+                    LeaveType = l.LeaveType.Title,
+                    LeaveStatus = l.LeaveStatus.Title!,
+                    ApprovedByName = l.ApprovedByNavigation.Name,
+                    ApprovedByIdentifier = l.ApprovedByNavigation.Identifier,
+
+                }
+                ).ToList();
+
+        }
+
+
 
     }
 }

@@ -30,6 +30,12 @@ namespace Api.Controllers
             return await _IBLL_Leave.GetLeaveRequestTypes();
         }
 
+        [HttpGet,Route("GetAllMyLeaveRequests")]
+
+        public async Task<BOL_ApiResponse<IEnumerable<BOL_LeaveRequestViewModel>>> GetAllMyLeaveRequests(int userid)
+        {
+            return await _IBLL_Leave.GetAllMyLeaveRequests(userid);
+        }
     }
 }
 

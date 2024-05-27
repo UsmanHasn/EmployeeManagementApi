@@ -13,5 +13,7 @@ namespace BusinessLogicLayer
         Task<BOL_ApiResponse<int>> AddLeaveRequest(BOL_AddLeave model);
 
         Task<BOL_ApiResponse<IEnumerable<BOL_DropdownModel>>> GetLeaveRequestTypes();
+
+        Task<BOL_ApiResponse<IEnumerable<BOL_LeaveRequestViewModel>>> GetAllMyLeaveRequests(int userid);
     }
 }

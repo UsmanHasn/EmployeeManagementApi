@@ -58,5 +58,24 @@ namespace BusinessLogicLayer
             }
             return response;
         }
+
+        public async Task<BOL_ApiResponse<IEnumerable<BOL_LeaveRequestViewModel>>> GetAllMyLeaveRequests(int userid)
+        {
+            var response = new BOL_ApiResponse<IEnumerable<BOL_LeaveRequestViewModel>>();
+            try
+            {
+                response.Data = await _IDAL_Leave.GetAllMyLeaveRequests(_IGeneralFunctions.GetLoggedInUserId());
+                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "Success";
+
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message = ex.Message;
+
+            }
+            return response;
+        }
     }
 }

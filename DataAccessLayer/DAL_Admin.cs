@@ -23,6 +23,8 @@ namespace DataAccessLayer
         {
             return _Dbcontext.Leaves.Include(l => l.LeaveType)
                 .Include(l => l.LeaveStatus)
+                .Include(l => l.ApprovedByNavigation)
+                .Include(l => l.RequestedByNavigation)
                 .Select(l => new BOL_LeaveRequestViewModel()
                 {
                     Identifier = l.Identifier,
@@ -33,11 +35,14 @@ namespace DataAccessLayer
                     LeaveStatusId = l.LeaveStatusId,
                     LeaveType = l.LeaveType.Title,
                     LeaveStatus = l.LeaveStatus.Title!,
-                    
+                    RequestedByName = l.RequestedByNavigation.Name,
+                    RequestedByIdentifier = l.RequestedByNavigation.Identifier,
 
                 }
                 ).ToList();
 
         }
+
+
     }
 }

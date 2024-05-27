@@ -61,6 +61,12 @@ public partial class User
 
     public int UsertypeId { get; set; }
 
+    [InverseProperty("ApprovedByNavigation")]
+    public virtual ICollection<Leave> LeaveApprovedByNavigations { get; set; } = new List<Leave>();
+
+    [InverseProperty("RequestedByNavigation")]
+    public virtual ICollection<Leave> LeaveRequestedByNavigations { get; set; } = new List<Leave>();
+
     [ForeignKey("UsertypeId")]
     [InverseProperty("Users")]
     public virtual UserType Usertype { get; set; } = null!;

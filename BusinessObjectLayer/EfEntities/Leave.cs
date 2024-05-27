@@ -27,6 +27,10 @@ public partial class Leave
 
     public int LeaveStatusId { get; set; }
 
+    [ForeignKey("ApprovedBy")]
+    [InverseProperty("LeaveApprovedByNavigations")]
+    public virtual User? ApprovedByNavigation { get; set; }
+
     [ForeignKey("LeaveStatusId")]
     [InverseProperty("Leaves")]
     public virtual LeaveStatus LeaveStatus { get; set; } = null!;
@@ -34,4 +38,8 @@ public partial class Leave
     [ForeignKey("LeaveTypeId")]
     [InverseProperty("Leaves")]
     public virtual LeaveType LeaveType { get; set; } = null!;
+
+    [ForeignKey("RequestedBy")]
+    [InverseProperty("LeaveRequestedByNavigations")]
+    public virtual User RequestedByNavigation { get; set; } = null!;
 }

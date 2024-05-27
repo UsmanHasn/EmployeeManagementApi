@@ -30,9 +30,7 @@ public partial class Dbcontext : DbContext
 
     public virtual DbSet<UserType> UserTypes { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-O6HU8I0;Initial Catalog=EmployeeManagementDb;Integrated Security=True;TrustServerCertificate=true ");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -54,6 +52,8 @@ public partial class Dbcontext : DbContext
             entity.Property(e => e.Identifier).HasDefaultValueSql("(newid())");
             entity.Property(e => e.LeaveStatusId).HasDefaultValue(1);
 
+            entity.HasOne(d => d.ApprovedByNavigation).WithMany(p => p.LeaveApprovedByNavigations).HasConstraintName("FK__Leave__ApprovedB__5BE2A6F2");
+
             entity.HasOne(d => d.LeaveStatus).WithMany(p => p.Leaves)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Leave__LeaveStat__4AB81AF0");
@@ -61,6 +61,10 @@ public partial class Dbcontext : DbContext
             entity.HasOne(d => d.LeaveType).WithMany(p => p.Leaves)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Leave__LeaveType__49C3F6B7");
+
+            entity.HasOne(d => d.RequestedByNavigation).WithMany(p => p.LeaveRequestedByNavigations)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Leave__Requested__5CD6CB2B");
         });
 
         modelBuilder.Entity<LeaveStatus>(entity =>

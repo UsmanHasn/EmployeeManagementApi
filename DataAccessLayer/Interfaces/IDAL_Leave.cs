@@ -14,5 +14,7 @@ namespace DataAccessLayer.Interfaces
 
         Task<IEnumerable<BOL_DropdownModel>> GetLeaveRequestTypes();
 
+        Task<IEnumerable<BOL_LeaveRequestViewModel>> GetAllMyLeaveRequests(int userId);
+
     }
 }
