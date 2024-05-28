@@ -30,7 +30,6 @@ namespace DataAccessLayer
                 Password = model.Password,
                 PhoneNo = model.PhoneNo,
                 CreatedBy = model.CreatedBy,
-                Dob = model.Dob,
                 ProfilePictureUrl = model.ProfilePictureUrl,
                 Address = model.Address,
                 IsActive = true

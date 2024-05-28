@@ -27,6 +27,15 @@ public partial class Leave
 
     public int LeaveStatusId { get; set; }
 
+    [Unicode(false)]
+    public string? Reason { get; set; }
+
+    [Unicode(false)]
+    public string? AdminRemarks { get; set; }
+
+    [Column(TypeName = "datetime")]
+    public DateTime? UpdatedOn { get; set; }
+
     [ForeignKey("ApprovedBy")]
     [InverseProperty("LeaveApprovedByNavigations")]
     public virtual User? ApprovedByNavigation { get; set; }

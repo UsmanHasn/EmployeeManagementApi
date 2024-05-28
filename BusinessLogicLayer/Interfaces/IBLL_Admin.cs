@@ -12,5 +12,7 @@ namespace BusinessLogicLayer.Interfaces
     {
         Task<BOL_ApiResponse<IEnumerable<BOL_LeaveRequestViewModel>>> GetAllLeaveRequests();
 
+        Task<BOL_ApiResponse<int>> ApproveOrRejectLeave(BOL_ApproveOrRejectLeave model);
+
     }
 }

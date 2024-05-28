@@ -24,5 +24,11 @@ namespace Api.Controllers
 
         }
 
+        [HttpPost,Route("ApproveOrRejectLeave")]
+        public async Task<BOL_ApiResponse<int>> ApproveOrRejectLeave(BOL_ApproveOrRejectLeave model)
+        {
+            return await _IBLL_Admin.ApproveOrRejectLeave(model);
+        }
+
     }
 }

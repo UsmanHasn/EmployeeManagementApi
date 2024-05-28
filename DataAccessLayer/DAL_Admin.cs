@@ -43,6 +43,19 @@ namespace DataAccessLayer
 
         }
 
+        public async Task<int> ApproveOrRejectLeave(BOL_ApproveOrRejectLeave model)
+        {
+            var leave = await _Dbcontext.Leaves.FirstOrDefaultAsync(l => l.Identifier == model.Identifier);
+            if (leave != null)
+            {
+                leave.LeaveStatusId = model.StatusId;
+                leave.AdminRemarks = model.AdminRemarks;
+                leave.ApprovedBy = model.UserId;
+                leave.UpdatedOn = DateTime.UtcNow;
 
+                return await _Dbcontext.SaveChangesAsync();
+            }
+            else { return 0; }
+        }
     }
 }

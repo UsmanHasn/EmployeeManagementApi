@@ -12,5 +12,7 @@ namespace DataAccessLayer.Interfaces
     {
         Task<IEnumerable<BOL_LeaveRequestViewModel>> GetAllLeaveRequests();
 
+        Task<int> ApproveOrRejectLeave(BOL_ApproveOrRejectLeave model);
+
     }
 }
