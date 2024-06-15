@@ -72,5 +72,91 @@ namespace BusinessLogicLayer
             return response;
         }
 
+        public async Task<BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>> GetAllEmployees()
+        {
+            var response = new BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>();
+            try
+            {
+                response.Data = await _IDAL_Admin.GetAllEmployees();
+                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "Successfull";
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<BOL_ApiResponse<int>> MarkUserAsIsActiveOrInActive(BOL_ToggleStatus model)
+        {
+            var response = new BOL_ApiResponse<int>();
+            try
+            {
+                response.Data = await _IDAL_Admin.MarkUserAsIsActiveOrInActive(model);
+                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "Employee Status Updated";
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<BOL_ApiResponse<int>> MarkUserAsDeleted(string identifier)
+        {
+            var response = new BOL_ApiResponse<int>();
+            try
+            {
+                response.Data = await _IDAL_Admin.MarkUserAsDeleted(identifier);
+                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "Employee Status Updated";
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+
+        public async Task<BOL_ApiResponse<BOL_UserViewModel>> GetEmployeeByIdentifier(string identifier)
+        {
+            var response = new BOL_ApiResponse<BOL_UserViewModel>();
+            try
+            {
+                response.Data = await _IDAL_Admin.GetEmployeeByIdentifier(identifier);
+                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "Success";
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message =ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<BOL_ApiResponse<int>> UpdateEmployee(BOL_UserViewModel model)
+        {
+            var response = new BOL_ApiResponse<int>();
+            try
+            {
+                response.Data = await _IDAL_Admin.UpdateEmployee(model);
+                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "Employee Updated Successfully";
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
     }
+
 }

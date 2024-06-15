@@ -41,7 +41,7 @@ public partial class User
     public int? CreatedBy { get; set; }
 
     [Column(TypeName = "datetime")]
-    public DateTime Dob { get; set; }
+    public DateTime? Dob { get; set; }
 
     [Column(TypeName = "datetime")]
     public DateTime? UpdatedOn { get; set; }

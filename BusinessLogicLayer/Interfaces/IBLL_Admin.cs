@@ -14,5 +14,15 @@ namespace BusinessLogicLayer.Interfaces
 
         Task<BOL_ApiResponse<int>> ApproveOrRejectLeave(BOL_ApproveOrRejectLeave model);
 
+        Task<BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>> GetAllEmployees();
+
+        Task<BOL_ApiResponse<int>> MarkUserAsIsActiveOrInActive(BOL_ToggleStatus model);
+
+        Task<BOL_ApiResponse<int>> MarkUserAsDeleted(string identifier);
+
+        Task<BOL_ApiResponse<BOL_UserViewModel>> GetEmployeeByIdentifier(string identifier);
+
+        Task<BOL_ApiResponse<int>> UpdateEmployee(BOL_UserViewModel model);
+
     }
 }
