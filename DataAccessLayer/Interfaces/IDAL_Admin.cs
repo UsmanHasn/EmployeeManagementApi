@@ -23,5 +23,9 @@ namespace DataAccessLayer.Interfaces
         Task<BOL_UserViewModel> GetEmployeeByIdentifier(string identifier);
 
         Task<int> UpdateEmployee(BOL_UserViewModel model);
+
+        Task<BOL_AdminDashboard> GetAdminDashboard();
+
+       
     }
 }

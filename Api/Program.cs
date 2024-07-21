@@ -27,6 +27,8 @@ builder.Services.AddScoped<IDAL_Leave, DAL_Leave>();
 builder.Services.AddScoped<IBLL_Leave, BLL_Leave>();
 builder.Services.AddScoped<IDAL_Admin, DAL_Admin>();
 builder.Services.AddScoped<IBLL_Admin, BLL_Admin>();
+builder.Services.AddScoped<IDAL_Notification, DAL_Notification>();
+builder.Services.AddScoped<IBLL_Notification, BLL_Notification>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddCors(p => p.AddPolicy("CorsPolicy", build =>
 {

@@ -54,8 +54,8 @@ namespace DataAccessLayer
                 leave.AdminRemarks = model.AdminRemarks;
                 leave.ApprovedBy = model.UserId;
                 leave.UpdatedOn = DateTime.UtcNow;
-
-                return await _Dbcontext.SaveChangesAsync();
+                await _Dbcontext.SaveChangesAsync();
+                return leave.RequestedBy;
             }
             else { return 0; }
         }
@@ -68,7 +68,7 @@ namespace DataAccessLayer
                 {
                     Identifier = l.Identifier,
                     FirstName = l.Name,
-                    Email = l.Email ,
+                    Email = l.Email,
                     PhoneNo = l.PhoneNo,
                     Adress = l.Address,
                     ProfilePic = l.ProfilePictureUrl,
@@ -84,10 +84,10 @@ namespace DataAccessLayer
         public async Task<int> MarkUserAsIsActiveOrInActive(BOL_ToggleStatus model)
         {
             var user = await _Dbcontext.Users.FirstOrDefaultAsync(u => u.Identifier == model.Identifier);
-            if(user != null)
+            if (user != null)
             {
                 user.IsActive = model.Status;
-                
+
             }
             return await _Dbcontext.SaveChangesAsync();
         }
@@ -146,6 +146,39 @@ namespace DataAccessLayer
                 return 0;
             }
         }
+
+        public async Task<BOL_AdminDashboard> GetAdminDashboard()
+        {
+            var adminDashboard = new BOL_AdminDashboard();
+            adminDashboard.TotalEmployeeCount = await _Dbcontext.Users.CountAsync(e => e.UsertypeId == 2);
+            adminDashboard.PendingLeaveRequests = await _Dbcontext.Leaves.CountAsync(e => e.LeaveStatusId == 1);
+            adminDashboard.LeaveRequests = await _Dbcontext.Leaves.Include(l => l.LeaveType)
+                .Include(l => l.LeaveStatus)
+                .Include(l => l.ApprovedByNavigation)
+                .Include(l => l.RequestedByNavigation)
+                .Where(l => l.LeaveStatusId == 1)
+
+                .Select(l => new BOL_LeaveRequestViewModel()
+                {
+                    Identifier = l.Identifier,
+                    RequestedBy = l.RequestedBy,
+                    ApprovedBy = l.ApprovedBy ?? 0,
+                    CreatedOn = l.CreatedOn,
+                    LeaveTypeId = l.LeaveTypeId,
+                    LeaveStatusId = l.LeaveStatusId,
+                    LeaveType = l.LeaveType.Title,
+                    LeaveStatus = l.LeaveStatus.Title!,
+                    ApprovedByName = l.ApprovedByNavigation.Name,
+                    ApprovedByIdentifier = l.ApprovedByNavigation.Identifier,
+                    RequestedByName = l.RequestedByNavigation.Name
+
+                }
+                ).OrderByDescending(l => l.CreatedOn).Take(5).ToListAsync();
+            return adminDashboard;
+
+        }
+
+
 
     }
 }

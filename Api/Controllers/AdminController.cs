@@ -25,7 +25,7 @@ namespace Api.Controllers
 
         }
 
-        [HttpPost,Route("ApproveOrRejectLeave")]
+        [HttpPost, Route("ApproveOrRejectLeave")]
         public async Task<BOL_ApiResponse<int>> ApproveOrRejectLeave(BOL_ApproveOrRejectLeave model)
         {
             return await _IBLL_Admin.ApproveOrRejectLeave(model);
@@ -38,7 +38,7 @@ namespace Api.Controllers
             return await _IBLL_Admin.GetAllEmployees();
         }
 
-        [HttpPost,Route("MarkUserAsIsActiveOrInActive")]
+        [HttpPost, Route("MarkUserAsIsActiveOrInActive")]
 
         public async Task<BOL_ApiResponse<int>> MarkUserAsIsActiveOrInActive(BOL_ToggleStatus model)
         {
@@ -52,7 +52,7 @@ namespace Api.Controllers
             return await _IBLL_Admin.MarkUserAsDeleted(Identifier);
         }
 
-        [HttpGet,Route("GetEmployeeByIdentifier")]
+        [HttpGet, Route("GetEmployeeByIdentifier")]
 
         public async Task<BOL_ApiResponse<BOL_UserViewModel>> GetEmployeeByIdentifier(string Identifier)
         {
@@ -66,5 +66,10 @@ namespace Api.Controllers
             return await _IBLL_Admin.UpdateEmployee(model);
         }
 
+        [HttpGet, Route("GetAdminDashboard")]
+        public async Task<BOL_ApiResponse<BOL_AdminDashboard>> GetAdminDashboard()
+        {
+            return await _IBLL_Admin.GetAdminDashboard();
+        }
     }
 }

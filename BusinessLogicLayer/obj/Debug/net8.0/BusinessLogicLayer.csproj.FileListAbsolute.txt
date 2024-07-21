@@ -10,9 +10,9 @@ E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessLogicLayer\obj\Debu
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.AssemblyInfoInputs.cache
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.AssemblyInfo.cs
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.sourcelink.json
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.csproj.CopyComplete
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessLogicLayer\obj\Debug\net8.0\refint\BusinessLogicLayer.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.pdb
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessLogicLayer\obj\Debug\net8.0\ref\BusinessLogicLayer.dll
-E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.sourcelink.json

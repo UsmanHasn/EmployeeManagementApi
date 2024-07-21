@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLogicLayer.Helper;
+using DataAccessLayer;
+using Azure;
 
 namespace BusinessLogicLayer
 {
@@ -18,10 +20,13 @@ namespace BusinessLogicLayer
 
         private readonly IGeneralFunctions _IGeneralFunctions;
 
-        public BLL_Admin(IDAL_Admin iDAL_Admin,IGeneralFunctions iGeneralFunctions)
+        private readonly IBLL_Notification _IBLL_Notification;
+
+        public BLL_Admin(IDAL_Admin iDAL_Admin,IGeneralFunctions iGeneralFunctions, IBLL_Notification iBLL_Notification)
         {
             _IDAL_Admin = iDAL_Admin;
             _IGeneralFunctions = iGeneralFunctions;
+            _IBLL_Notification = iBLL_Notification; 
         }
 
         public async Task<BOL_ApiResponse<IEnumerable<BOL_LeaveRequestViewModel>>> GetAllLeaveRequests()
@@ -51,7 +56,9 @@ namespace BusinessLogicLayer
                 model.UserId = _IGeneralFunctions.GetLoggedInUserId();
                 response.Data = await _IDAL_Admin.ApproveOrRejectLeave(model);
                 response.StatusCode = HttpStatusCode.OK;
-                if (model.StatusId == 2 )
+                await _IBLL_Notification.LeaveRequestApproveOrRejected(response.Data, model.StatusId);
+
+                if (model.StatusId == 2  )
                 {
                     response.Message = "Leave Successfully Approved";
 
@@ -149,6 +156,24 @@ namespace BusinessLogicLayer
                 response.Data = await _IDAL_Admin.UpdateEmployee(model);
                 response.StatusCode = HttpStatusCode.OK;
                 response.Message = "Employee Updated Successfully";
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+
+        public async Task<BOL_ApiResponse<BOL_AdminDashboard>> GetAdminDashboard()
+        {
+            var response = new BOL_ApiResponse<BOL_AdminDashboard>();
+            try
+            {
+                response.Data = await _IDAL_Admin.GetAdminDashboard();
+                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "Successfully";
             }
             catch (Exception ex)
             {

@@ -6,8 +6,8 @@ E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Deb
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\BusinessObjectLayer.AssemblyInfoInputs.cache
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\BusinessObjectLayer.AssemblyInfo.cs
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\BusinessObjectLayer.csproj.CoreCompileInputs.cache
+E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\BusinessObjectLayer.sourcelink.json
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\BusinessObjectLayer.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\refint\BusinessObjectLayer.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\BusinessObjectLayer.pdb
 E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\ref\BusinessObjectLayer.dll
-E:\Classes\Update Project 2022\EmployeeManagementApi\BusinessObjectLayer\obj\Debug\net8.0\BusinessObjectLayer.sourcelink.json

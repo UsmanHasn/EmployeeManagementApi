@@ -100,6 +100,19 @@ namespace DataAccessLayer
             }
         }
 
+
+        public async Task<IEnumerable<User>> GetAllUsersByUserTypeId(int userTypeId)
+        {
+
+            return await _dbcontext.Users
+                .Where(x => x.UsertypeId == userTypeId)
+                .ToListAsync();
+        }
+
+        public async Task<User> GetUserByUserId(int userid)
+        {
+            return await _dbcontext.Users.FirstOrDefaultAsync(u => u.Id == userid);
+        }
     }
 
 }

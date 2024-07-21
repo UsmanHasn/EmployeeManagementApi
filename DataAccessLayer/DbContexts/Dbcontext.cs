@@ -26,12 +26,15 @@ public partial class Dbcontext : DbContext
 
     public virtual DbSet<LeaveType> LeaveTypes { get; set; }
 
+    public virtual DbSet<Notification> Notifications { get; set; }
+
+    public virtual DbSet<NotificationTemplate> NotificationTemplates { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserType> UserTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -73,6 +76,29 @@ public partial class Dbcontext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__LeaveSta__3214EC07341058D8");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Notifica__3214EC0777F19A80");
+
+            entity.Property(e => e.CreatedOn).HasDefaultValueSql("(getutcdate())");
+
+            entity.HasOne(d => d.NotificationType).WithMany(p => p.Notifications)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Notificat__Notif__00200768");
+
+            entity.HasOne(d => d.NotifyToNavigation).WithMany(p => p.Notifications)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Notificat__Notif__7F2BE32F");
+        });
+
+        modelBuilder.Entity<NotificationTemplate>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Notifica__3214EC0726E88E42");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
         });
 
         modelBuilder.Entity<User>(entity =>

@@ -24,5 +24,7 @@ namespace BusinessLogicLayer.Interfaces
 
         Task<BOL_ApiResponse<int>> UpdateEmployee(BOL_UserViewModel model);
 
+        Task<BOL_ApiResponse<BOL_AdminDashboard>> GetAdminDashboard();
+
     }
 }

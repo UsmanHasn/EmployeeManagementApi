@@ -6,6 +6,7 @@ using BusinessObjectLayer.Dtos;
 using DataAccessLayer;
 using DataAccessLayer.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,12 @@ namespace BusinessLogicLayer
     {
         private readonly IDAL_Auth _IDAL_Auth;
         private readonly IGeneralFunctions _IGeneralFunctions;
-        public BLL_Auth(IDAL_Auth iDAL_Auth, IGeneralFunctions IgeneralFunctions)
+        private readonly IBLL_Notification _IBLL_Notification;
+        public BLL_Auth(IDAL_Auth iDAL_Auth, IGeneralFunctions IgeneralFunctions, IBLL_Notification iBLL_Notification)
         {
             _IDAL_Auth = iDAL_Auth;
             _IGeneralFunctions = IgeneralFunctions;
+            _IBLL_Notification = iBLL_Notification;
         }
 
         public async Task<BOL_ApiResponse<int>> RegisterUser(BOL_RegisterUser model)
@@ -101,6 +104,9 @@ namespace BusinessLogicLayer
                         userdto.TimedIn = attendence.TimedIn;
                         userdto.TimedOut = attendence.TimeOut;
                     }
+                    var placeholders = new Dictionary<Placeholder, string>();
+                    placeholders.Add(Placeholder.DateTime, DateTime.Now.ToString());
+                    await _IBLL_Notification.GenerateNotification((int)NotificationsTemplate.LoggedIn, userdto.Id, placeholders);
                     response.Data = GenerateJsonWebToken(userdto);
                     response.StatusCode = HttpStatusCode.OK;
                     response.Message = "Login Successfull";

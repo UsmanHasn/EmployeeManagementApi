@@ -67,6 +67,9 @@ public partial class User
     [InverseProperty("RequestedByNavigation")]
     public virtual ICollection<Leave> LeaveRequestedByNavigations { get; set; } = new List<Leave>();
 
+    [InverseProperty("NotifyToNavigation")]
+    public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+
     [ForeignKey("UsertypeId")]
     [InverseProperty("Users")]
     public virtual UserType Usertype { get; set; } = null!;

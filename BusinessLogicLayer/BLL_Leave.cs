@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using BusinessLogicLayer.Interfaces;
+using BusinesObjectLayer.Enums;
 
 namespace BusinessLogicLayer
 {
@@ -16,11 +18,17 @@ namespace BusinessLogicLayer
     {
         private readonly IDAL_Leave _IDAL_Leave;
 
+        private readonly IDAL_Auth _IDAL_Auth;
+
         private readonly IGeneralFunctions _IGeneralFunctions;
-        public BLL_Leave(IDAL_Leave iDAL_Leave,IGeneralFunctions iGeneralFunctions)
+
+        private readonly IBLL_Notification _IBLL_Notification;
+        public BLL_Leave(IDAL_Leave iDAL_Leave,IGeneralFunctions iGeneralFunctions,IBLL_Notification iBLL_Notification,IDAL_Auth iDAL_Auth)
         {
             _IDAL_Leave = iDAL_Leave;
             _IGeneralFunctions = iGeneralFunctions;
+            _IBLL_Notification = iBLL_Notification;
+            _IDAL_Auth = iDAL_Auth;
         }   
         public async Task<BOL_ApiResponse<int>> AddLeaveRequest(BOL_AddLeave model)
         {
@@ -30,6 +38,15 @@ namespace BusinessLogicLayer
             {
                 model.RequestedBy = _IGeneralFunctions.GetLoggedInUserId();
                 response.Data = await _IDAL_Leave.AddLeaveRequest(model);
+                var placeholders = new Dictionary<Placeholder, string>();
+                placeholders.Add(Placeholder.UserName, _IGeneralFunctions.GetLoggedInUserName());
+                var admins = await _IDAL_Auth.GetAllUsersByUserTypeId((int)UserTypeEnum.Admin);
+                foreach (var admin in admins)
+                {
+                    await _IBLL_Notification.GenerateNotification((int)NotificationsTemplate.NewLeaveRequest, 2, placeholders);
+
+                }
+
                 response.StatusCode = HttpStatusCode.OK;
                 response.Message = "Successfull";
             }

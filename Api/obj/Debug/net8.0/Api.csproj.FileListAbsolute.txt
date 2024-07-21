@@ -8,6 +8,7 @@ E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Api.pd
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Azure.Core.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Azure.Identity.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Humanizer.dll
+E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -32,6 +33,7 @@ E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Micros
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Mono.TextTemplating.dll
+E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\SixLabors.ImageSharp.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -126,6 +128,7 @@ E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\Api.As
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\Api.csproj.CoreCompileInputs.cache
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\Api.MvcApplicationPartsAssemblyInfo.cs
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\Api.MvcApplicationPartsAssemblyInfo.cache
+E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\Api.sourcelink.json
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\staticwebassets.build.json
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\staticwebassets.development.json
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\staticwebassets\msbuild.Api.Microsoft.AspNetCore.StaticWebAssets.props
@@ -140,6 +143,3 @@ E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\refint
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\Api.pdb
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\Api.genruntimeconfig.cache
 E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\ref\Api.dll
-E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-E:\Classes\Update Project 2022\EmployeeManagementApi\Api\bin\Debug\net8.0\SixLabors.ImageSharp.dll
-E:\Classes\Update Project 2022\EmployeeManagementApi\Api\obj\Debug\net8.0\Api.sourcelink.json

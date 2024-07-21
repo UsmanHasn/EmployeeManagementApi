@@ -22,5 +22,9 @@ namespace DataAccessLayer.Interfaces
 
         Task<int> ResetUserPassword(BOL_ResetUserPassword model);
 
+        Task<IEnumerable<User>> GetAllUsersByUserTypeId(int userTypeId);
+
+        Task<User> GetUserByUserId(int userid);
+
     }
 }
