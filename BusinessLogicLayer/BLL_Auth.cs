@@ -67,7 +67,6 @@ namespace BusinessLogicLayer
             }
             catch (Exception ex)
             {
-                
                 response.StatusCode = HttpStatusCode.InternalServerError;
                 response.Message = ex.Message;
             }
