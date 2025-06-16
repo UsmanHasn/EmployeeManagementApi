@@ -16,14 +16,12 @@ namespace BusinessObjectLayer.Dtos
 
         public string LastName { get; set; } = null!;
 
-        public string Email { get; set; } = null!;
+        public string Email { get; set; } = null!;  
 
         public string PhoneNo { get; set; }
         public string Adress { get; set; } = null!;
 
         public string Identifier { get; set; } = null!;
-
-
 
         public string ProfilePic { get; set; }
 

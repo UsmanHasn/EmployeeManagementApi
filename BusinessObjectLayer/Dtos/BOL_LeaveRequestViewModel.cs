@@ -22,8 +22,10 @@ namespace BusinessObjectLayer.Dtos
         public string ApprovedByName { get; set; }
         public string ApprovedByIdentifier { get; set; }
 
+        public DateTime? LeavesFromDate { get; set; }    
+        public DateTime? LeavesToDate { get; set; }
+        public string? Reason { get; set; }
 
-        
 
 
 

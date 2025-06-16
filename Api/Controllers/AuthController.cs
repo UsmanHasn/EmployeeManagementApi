@@ -51,5 +51,8 @@ namespace Api.Controllers
         {
             return await _IBLL_Auth.ResetUserPassword(model);
         }
+
+        //[HttpPost, Route("P_LoginUser")]
+        //public 
     }
 }

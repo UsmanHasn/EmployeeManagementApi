@@ -26,6 +26,10 @@ namespace DataAccessLayer
             {
                 RequestedBy = model.RequestedBy,
                 LeaveTypeId = model.LeaveTypeId,
+                Reason = model.Reason,
+                LeavesFromDate = model.LeaveFromDate,
+                LeavesToDate = model.LeaveToDate
+
 
             };
             _dbcontext.Leaves.Add(leave);
@@ -64,7 +68,7 @@ namespace DataAccessLayer
                     ApprovedByIdentifier = l.ApprovedByNavigation.Identifier,
 
                 }
-                ).ToList();
+                ).OrderByDescending(l=> l.CreatedOn).ToList();
 
         }
 

@@ -26,5 +26,7 @@ namespace DataAccessLayer.Interfaces
 
         Task<User> GetUserByUserId(int userid);
 
+        Task<User> p_verifyUser(BOL_LoginRequest model);
+
     }
 }

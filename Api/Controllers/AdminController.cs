@@ -31,11 +31,12 @@ namespace Api.Controllers
             return await _IBLL_Admin.ApproveOrRejectLeave(model);
         }
 
-        [HttpGet, Route("GetAllEmployees")]
 
-        public async Task<BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>> GetAllEmployees()
+        [HttpGet,Route("GetAllDepartments")]
+
+        public async Task<BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>> GetAllDepartments()
         {
-            return await _IBLL_Admin.GetAllEmployees();
+            return await _IBLL_Admin.GetAllDepartments();
         }
 
         [HttpPost, Route("MarkUserAsIsActiveOrInActive")]
@@ -70,6 +71,18 @@ namespace Api.Controllers
         public async Task<BOL_ApiResponse<BOL_AdminDashboard>> GetAdminDashboard()
         {
             return await _IBLL_Admin.GetAdminDashboard();
+        }
+        [HttpGet, Route("GetAllEmployees")]
+
+        public async Task<BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>> GetAllEmployees()
+        {
+            return await _IBLL_Admin.GetAllEmployees();
+        }
+
+        [HttpGet,Route("GetAllDesignations")]
+        public async Task<BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>> GetAllDesingations()
+        {
+            return await _IBLL_Admin.GetAllDesignations();
         }
     }
 }

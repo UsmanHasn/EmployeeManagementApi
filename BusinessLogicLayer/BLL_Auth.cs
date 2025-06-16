@@ -76,6 +76,7 @@ namespace BusinessLogicLayer
         public async Task<BOL_ApiResponse<BOL_UserDto>> LoginUser(BOL_LoginRequest model)
         {
             var response = new BOL_ApiResponse<BOL_UserDto>();
+
             try
             {
                 var user = await _IDAL_Auth.VerifyUser(model);
@@ -84,6 +85,12 @@ namespace BusinessLogicLayer
                     response.StatusCode = HttpStatusCode.BadRequest;
                     response.Message = "Invalid Crendential";
                 }
+                else if (user.IsActive == false)
+                {
+                    response.StatusCode = HttpStatusCode.BadRequest;
+                    response.Message = "Your account has been deactivated,contact";
+                }
+
                 else
                 {
                     var attendence = await _IDAL_Auth.GetAttendenceByUserId(user.Id, DateTime.UtcNow);
@@ -225,7 +232,54 @@ namespace BusinessLogicLayer
                 response.StatusCode = HttpStatusCode.InternalServerError;
                 response.Message = ex.Message;
             }
-            return response;    
+            return response;
+        }
+
+        //Pratice LoginApi
+        public async Task<BOL_ApiResponse<BOL_UserDto>> P_LoginUser(BOL_LoginRequest model)
+        {
+            var response = new BOL_ApiResponse<BOL_UserDto>();
+            try
+            {
+                var user = await _IDAL_Auth.p_verifyUser(model);
+                if (user == null)
+                {
+                    response.StatusCode = HttpStatusCode.BadRequest;
+                    response.Message = "Invalid Crendential";
+
+                }
+                else if (user.IsActive == false)
+                {
+                    response.StatusCode = HttpStatusCode.BadRequest;
+                    response.Message = "Your account has been deactivated,contact";
+                }
+
+
+                else
+                {
+                    var userdto = new BOL_UserDto();
+                    userdto.Id = user.Id;
+                    userdto.FirstName = user.Name;
+                    userdto.Email = user.Email;
+                    userdto.Adress = user.Address;
+                    userdto.UserTypeId = user.UsertypeId;
+                    userdto.Identifier = user.Identifier;
+                    userdto.PhoneNo = user.PhoneNo;
+                    userdto.FirstName = user.ProfilePictureUrl;
+                    userdto.CreatedOn = user.CreatedOn;
+
+                    response.Data = userdto;
+                    response.StatusCode = HttpStatusCode.OK;
+                    response.Message = "Login Successfull";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message = ex.Message;
+            }
+
+            return response;
         }
 
         //public async Task<BOL_ApiResponse<bool>> ForgotPasswordSendEmail(string Email)

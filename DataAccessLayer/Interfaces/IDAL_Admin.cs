@@ -16,6 +16,7 @@ namespace DataAccessLayer.Interfaces
 
         Task<IEnumerable<BOL_UserViewModel>> GetAllEmployees();
 
+
         Task<int> MarkUserAsIsActiveOrInActive(BOL_ToggleStatus model);
 
         Task<int> MarkUserAsDeleted(string Identifier);
@@ -26,6 +27,9 @@ namespace DataAccessLayer.Interfaces
 
         Task<BOL_AdminDashboard> GetAdminDashboard();
 
-       
+        //added by Muhammad Usman
+        Task<IEnumerable<BOL_UserViewModel>> GetAllDepartments();
+        Task<IEnumerable<BOL_UserViewModel>> GetAllDesignations();
+
     }
 }

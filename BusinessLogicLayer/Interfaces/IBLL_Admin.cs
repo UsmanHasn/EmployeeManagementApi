@@ -26,5 +26,10 @@ namespace BusinessLogicLayer.Interfaces
 
         Task<BOL_ApiResponse<BOL_AdminDashboard>> GetAdminDashboard();
 
+        // Added by Muhammad Usman 
+
+        Task<BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>> GetAllDepartments();
+        Task<BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>> GetAllDesignations();
+
     }
 }

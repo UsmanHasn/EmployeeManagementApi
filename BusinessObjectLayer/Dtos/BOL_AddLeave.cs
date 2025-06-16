@@ -12,7 +12,10 @@ namespace BusinessObjectLayer.Dtos
         [JsonIgnore]
         public int RequestedBy { get; set; }
         public int LeaveTypeId { get; set; }
-        public string Reasons { get; set; }
+        public string Reason { get; set; }
+
+        public DateTime LeaveFromDate { get; set; } 
+        public DateTime LeaveToDate { get; set; }
 
     }
 }

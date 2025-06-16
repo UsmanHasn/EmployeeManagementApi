@@ -58,7 +58,14 @@ namespace DataAccessLayer
 
         public async Task<User> VerifyUser(BOL_LoginRequest model)
         {
-            return await _dbcontext.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password && u.IsActive == true);
+            return await _dbcontext.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+        }
+
+        //Pratice VerifyUser
+
+        public async Task<User> p_verifyUser(BOL_LoginRequest model)
+        {
+            return await _dbcontext.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
         }
 
         public async Task<Attendence> GetAttendenceByUserId(int Id, DateTime dateTime)
@@ -116,3 +123,4 @@ namespace DataAccessLayer
     }
 
 }
+

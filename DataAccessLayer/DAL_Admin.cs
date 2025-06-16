@@ -39,9 +39,12 @@ namespace DataAccessLayer
                     LeaveStatus = l.LeaveStatus.Title!,
                     RequestedByName = l.RequestedByNavigation.Name,
                     RequestedByIdentifier = l.RequestedByNavigation.Identifier,
+                    LeavesFromDate = l.LeavesFromDate,
+                    LeavesToDate = l.LeavesToDate,
+                    Reason = l.Reason
 
                 }
-                ).ToList();
+                ).OrderByDescending(l => l.CreatedOn).ToList();
 
         }
 
@@ -81,10 +84,37 @@ namespace DataAccessLayer
 
         }
 
+        public async Task<IEnumerable<BOL_UserViewModel>> GetAllDepartments()
+        {
+            return _Dbcontext.Users
+            .Select(l => new BOL_UserViewModel()
+            {
+                Id = l.Id,
+                FirstName = l.Name,
+                IsActive = l.IsActive,
+                CreatedOn = l.CreatedOn,
+            }
+            ).ToList();
+        }
+
+        public async Task<IEnumerable<BOL_UserViewModel>> GetAllDesignations()
+        {
+            return _Dbcontext.Users
+            .Select(l => new BOL_UserViewModel()
+            {
+                Id = l.Id,
+                FirstName = l.Name,
+                IsActive = l.IsActive,
+                CreatedOn = l.CreatedOn,
+            }
+
+            ).ToList();
+        }
+
         public async Task<int> MarkUserAsIsActiveOrInActive(BOL_ToggleStatus model)
         {
             var user = await _Dbcontext.Users.FirstOrDefaultAsync(u => u.Identifier == model.Identifier);
-            if (user != null)
+            if (user != null)   
             {
                 user.IsActive = model.Status;
 
@@ -152,12 +182,15 @@ namespace DataAccessLayer
             var adminDashboard = new BOL_AdminDashboard();
             adminDashboard.TotalEmployeeCount = await _Dbcontext.Users.CountAsync(e => e.UsertypeId == 2);
             adminDashboard.PendingLeaveRequests = await _Dbcontext.Leaves.CountAsync(e => e.LeaveStatusId == 1);
+            adminDashboard.EmployeeOnLeaves = await _Dbcontext.Leaves.Where(l => l.LeaveStatusId == 2 && DateTime.Today >= l.LeavesFromDate && DateTime.Today <= l.LeavesToDate)
+                .Select(l => l.RequestedBy)
+                .Distinct()
+                .CountAsync();
             adminDashboard.LeaveRequests = await _Dbcontext.Leaves.Include(l => l.LeaveType)
                 .Include(l => l.LeaveStatus)
                 .Include(l => l.ApprovedByNavigation)
                 .Include(l => l.RequestedByNavigation)
                 .Where(l => l.LeaveStatusId == 1)
-
                 .Select(l => new BOL_LeaveRequestViewModel()
                 {
                     Identifier = l.Identifier,
@@ -170,12 +203,90 @@ namespace DataAccessLayer
                     LeaveStatus = l.LeaveStatus.Title!,
                     ApprovedByName = l.ApprovedByNavigation.Name,
                     ApprovedByIdentifier = l.ApprovedByNavigation.Identifier,
-                    RequestedByName = l.RequestedByNavigation.Name
+                    RequestedByName = l.RequestedByNavigation.Name,
 
-                }
-                ).OrderByDescending(l => l.CreatedOn).Take(5).ToListAsync();
+
+                })
+                .OrderByDescending(l => l.CreatedOn)
+                .Take(5)
+                .ToListAsync();
+
+            // Fetch data for chart by month
+            adminDashboard.EmployeesPresent = await GetEmployeesPresentChartDataByMonth();
+            adminDashboard.EmployeesAbsent = await GetEmployeesAbsentChartDataByMonth();
+
             return adminDashboard;
+        }
 
+        public async Task<BOL_ChartData> GetEmployeesPresentChartDataByMonth()
+        {
+            var chartData = new BOL_ChartData();
+
+            var labels = new List<string>();
+            var values = new List<double>();
+
+            var currentYear = DateTime.Now.Year;
+            var totalEmployees = await _Dbcontext.Users.CountAsync(e => e.UsertypeId == 2);
+
+            for (int month = 1; month <= 12; month++)
+            {
+                var startDate = new DateTime(currentYear, month, 1);
+                var endDate = startDate.AddMonths(1).AddDays(-1);
+
+                labels.Add(startDate.ToString("MMMM")); // Month name
+
+                // Calculate the count of employees on leave in the current month
+                var employeesOnLeave = await _Dbcontext.Leaves
+                    .Where(l => l.LeaveStatusId == 2 &&
+                                l.LeavesFromDate <= endDate &&
+                                l.LeavesToDate >= startDate)
+                    .Select(l => l.RequestedBy)
+                    .Distinct()
+                    .CountAsync();
+
+                // Employees present = Total employees - Employees on leave
+                var employeesPresent = totalEmployees - employeesOnLeave;
+                values.Add(employeesPresent);
+            }
+
+            chartData.Labels = labels;
+            chartData.Values = values;
+
+            return chartData;
+        }
+
+        public async Task<BOL_ChartData> GetEmployeesAbsentChartDataByMonth()
+        {
+            var chartData = new BOL_ChartData();
+
+            var labels = new List<string>();
+            var values = new List<double>();
+
+            var currentYear = DateTime.Now.Year;
+
+            for (int month = 1; month <= 12; month++)
+            {
+                var startDate = new DateTime(currentYear, month, 1);
+                var endDate = startDate.AddMonths(1).AddDays(-1);
+
+                labels.Add(startDate.ToString("MMMM")); // Month name
+
+                // Calculate the count of employees on leave in the current month
+                var employeesOnLeave = await _Dbcontext.Leaves
+                    .Where(l => l.LeaveStatusId == 2 &&
+                                l.LeavesFromDate <= endDate &&
+                                l.LeavesToDate >= startDate)
+                    .Select(l => l.RequestedBy)
+                    .Distinct()
+                    .CountAsync();
+
+                values.Add(employeesOnLeave);
+            }
+
+            chartData.Labels = labels;
+            chartData.Values = values;
+
+            return chartData;
         }
 
 

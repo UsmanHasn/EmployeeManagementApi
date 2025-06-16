@@ -13,5 +13,8 @@ namespace BusinessObjectLayer.Dtos
         public int EmployeeOnLeaves { get; set; }
         public IEnumerable<BOL_LeaveRequestViewModel> LeaveRequests { get; set; }   
 
+        public BOL_ChartData EmployeesPresent { get; set; } 
+        public BOL_ChartData EmployeesAbsent { get; set; } 
+
     }
 }

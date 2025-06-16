@@ -36,6 +36,12 @@ public partial class Leave
     [Column(TypeName = "datetime")]
     public DateTime? UpdatedOn { get; set; }
 
+    [Column(TypeName = "datetime")]
+    public DateTime? LeavesFromDate { get; set; }
+
+    [Column(TypeName = "datetime")]
+    public DateTime? LeavesToDate { get; set; }
+
     [ForeignKey("ApprovedBy")]
     [InverseProperty("LeaveApprovedByNavigations")]
     public virtual User? ApprovedByNavigation { get; set; }

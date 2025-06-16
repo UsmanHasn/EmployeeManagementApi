@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 using BusinessLogicLayer.Helper;
 using DataAccessLayer;
 using Azure;
+using System.Formats.Asn1;
 
 namespace BusinessLogicLayer
 {
-    public class BLL_Admin:IBLL_Admin
+    public class BLL_Admin : IBLL_Admin
     {
         private readonly IDAL_Admin _IDAL_Admin;
 
@@ -22,11 +23,11 @@ namespace BusinessLogicLayer
 
         private readonly IBLL_Notification _IBLL_Notification;
 
-        public BLL_Admin(IDAL_Admin iDAL_Admin,IGeneralFunctions iGeneralFunctions, IBLL_Notification iBLL_Notification)
+        public BLL_Admin(IDAL_Admin iDAL_Admin, IGeneralFunctions iGeneralFunctions, IBLL_Notification iBLL_Notification)
         {
             _IDAL_Admin = iDAL_Admin;
             _IGeneralFunctions = iGeneralFunctions;
-            _IBLL_Notification = iBLL_Notification; 
+            _IBLL_Notification = iBLL_Notification;
         }
 
         public async Task<BOL_ApiResponse<IEnumerable<BOL_LeaveRequestViewModel>>> GetAllLeaveRequests()
@@ -58,7 +59,7 @@ namespace BusinessLogicLayer
                 response.StatusCode = HttpStatusCode.OK;
                 await _IBLL_Notification.LeaveRequestApproveOrRejected(response.Data, model.StatusId);
 
-                if (model.StatusId == 2  )
+                if (model.StatusId == 2)
                 {
                     response.Message = "Leave Successfully Approved";
 
@@ -143,7 +144,7 @@ namespace BusinessLogicLayer
             catch (Exception ex)
             {
                 response.StatusCode = HttpStatusCode.InternalServerError;
-                response.Message =ex.Message;
+                response.Message = ex.Message;
             }
             return response;
         }
@@ -182,6 +183,46 @@ namespace BusinessLogicLayer
             }
             return response;
         }
+
+        //GetAllDepartments 
+        public async Task<BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>> GetAllDepartments()
+        {
+            var response = new BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>();
+            try
+            {
+                response.Data = await _IDAL_Admin.GetAllDepartments();
+                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "Successfull";
+
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                response.Message = ex.Message;
+
+            }
+            return response;
+        }
+
+        public async Task<BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>> GetAllDesignations()
+        {
+            var response = new BOL_ApiResponse<IEnumerable<BOL_UserViewModel>>();   
+
+            try
+            {
+                response.Data = await _IDAL_Admin.GetAllDesignations();
+                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "Successfull";
+            }
+            catch (Exception ex )
+            {
+                response.StatusCode = HttpStatusCode.OK;
+                response.Message = ex.Message;
+                ;
+            }
+            return response;
+        }
+
     }
 
 }
