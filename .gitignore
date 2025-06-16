@@ -11,3 +11,5 @@
 /BusinessLogicLayer/bin
 /BusinessObjectLayer/obj
 /BusinessObjectLayer/bin
+/DataAccessLayer/obj
+/DataAccessLayer/bin
